@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday, My Love 🌹</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --rose:       #C9556A;
+      --rose-light: #F7D6DC;
+      --blush:      #FFF0F3;
+      --gold:       #C9A84C;
+      --midnight:   #1A1025;
+      --plum:       #3B1F35;
+      --cream:      #FDF8F0;
+      --text:       #2E1B28;
+      --muted:      #7A5C6A;
+      --white:      #FFFFFF;
+
+      --serif:  'Playfair Display', Georgia, serif;
+      --script: 'Dancing Script', cursive;
+      --sans:   'Lato', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    img { max-width: 100%; display: block; }
+    a   { color: inherit; text-decoration: none; }
+
+    #hearts-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: .35;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      background: linear-gradient(160deg, var(--midnight) 0%, var(--plum) 55%, #6B2D50 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 24px;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 560px; height: 560px;
+      border-radius: 50%;
+      border: 1.5px dashed rgba(201,85,106,.35);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 720px; height: 720px;
+      border-radius: 50%;
+      border: 1px dashed rgba(201,168,76,.18);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      font-family: var(--script);
+      font-size: 1.1rem;
+      color: var(--gold);
+      letter-spacing: .12em;
+      margin-bottom: 18px;
+      opacity: .9;
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.6rem, 8vw, 5.2rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.12;
+      margin-bottom: 10px;
+    }
+
+    .hero h1 .name {
+      font-style: italic;
+      color: var(--rose-light);
+    }
+
+    .hero-tagline {
+      font-family: var(--script);
+      font-size: clamp(1.2rem, 3.5vw, 1.7rem);
+      color: var(--gold);
+      margin-top: 8px;
+      margin-bottom: 36px;
+    }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,.45);
+      font-size: .75rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .hero-scroll-hint span { font-size: 1.4rem; animation: bounce 1.6s infinite; }
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+    .rose-divider {
+      text-align: center;
+      font-size: 1.6rem;
+      color: var(--rose);
+      margin: 10px 0 28px;
+      letter-spacing: .5em;
+    }
+
+    .section {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+
+    .section-label {
+      font-family: var(--sans);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+
+    .section h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 700;
+      color: var(--plum);
+      line-height: 1.2;
+      margin-bottom: 28px;
+    }
+
+    .section p {
+      font-size: 1.07rem;
+      line-height: 1.85;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .section--dark {
+      background: linear-gradient(135deg, var(--midnight), var(--plum));
+      max-width: 100%;
+      padding: 80px 24px;
+    }
+    .section--dark > .inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .section--dark .section-label { color: var(--rose-light); opacity: .7; }
+    .section--dark h2 { color: var(--white); }
+    .section--dark p  { color: rgba(255,255,255,.68); }
+
+    .section--blush {
+      background: var(--blush);
+      max-width: 100%;
+      padding: 80px 24px;
+    }
+    .section--blush > .inner { max-width: 860px; margin: 0 auto; }
+
+    .video-wrapper {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0,0,0,.45);
+      background: #0d0912;
+      margin: 0 auto 48px;
+      max-width: 760px;
+    }
+    .video-wrapper iframe,
+    .video-wrapper video {
+      width: 100%;
+      aspect-ratio: 16/9;
+      display: block;
+      border: none;
+    }
+    .video-caption {
+      text-align: center;
+      font-family: var(--script);
+      font-size: 1.15rem;
+      color: var(--rose-light);
+      margin-top: -28px;
+      margin-bottom: 40px;
+      opacity: .85;
+    }
+
+    .message-card {
+      background: var(--white);
+      border-left: 4px solid var(--rose);
+      border-radius: 0 16px 16px 0;
+      padding: 36px 40px;
+      box-shadow: 0 8px 36px rgba(201,85,106,.10);
+      font-size: 1.05rem;
+      line-height: 1.92;
+      color: var(--text);
+      margin-bottom: 40px;
+    }
+    .message-card .salutation {
+      font-family: var(--script);
+      font-size: 1.5rem;
+      color: var(--rose);
+      display: block;
+      margin-bottom: 14px;
+    }
+    .message-card .sign-off {
+      margin-top: 20px;
+      font-family: var(--script);
+      font-size: 1.3rem;
+      color: var(--gold);
+      display: block;
+      text-align: right;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 44px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 14px; top: 8px; bottom: 8px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--rose), var(--gold));
+      border-radius: 2px;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 56px;
+    }
+    .timeline-item:last-child { margin-bottom: 0; }
+
+    .timeline-dot {
+      position: absolute;
+      left: -37px; top: 6px;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--rose);
+      border: 3px solid var(--cream);
+      box-shadow: 0 0 0 2px var(--rose);
+    }
+
+    .timeline-item h3 {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--plum);
+      margin-bottom: 10px;
+    }
+    .section--dark .timeline-item h3 { color: var(--white); }
+    .section--dark .timeline-dot { border-color: var(--midnight); }
+
+    .timeline-photo {
+      width: 100%;
+      max-width: 480px;
+      border-radius: 12px;
+      margin-bottom: 14px;
+      box-shadow: 0 8px 28px rgba(0,0,0,.18);
+      object-fit: cover;
+      aspect-ratio: 4/3;
+      background: rgba(255,255,255,.08);
+    }
+
+    .photo-placeholder {
+      width: 100%;
+      max-width: 480px;
+      border-radius: 12px;
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, rgba(201,85,106,.15), rgba(201,168,76,.10));
+      border: 2px dashed rgba(201,85,106,.35);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: .9rem;
+      margin-bottom: 14px;
+    }
+    .section--dark .photo-placeholder {
+      background: rgba(255,255,255,.04);
+      border-color: rgba(255,255,255,.15);
+      color: rgba(255,255,255,.4);
+    }
+    .photo-placeholder .icon { font-size: 2.2rem; }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 36px;
+    }
+    .gallery-item {
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 1;
+      cursor: pointer;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .gallery-item:hover {
+      transform: scale(1.04);
+      box-shadow: 0 12px 32px rgba(0,0,0,.28);
+    }
+    .gallery-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .gallery-placeholder {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, rgba(201,85,106,.18), rgba(59,31,53,.25));
+      border: 2px dashed rgba(201,85,106,.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      color: var(--muted);
+      font-size: .78rem;
+      border-radius: 12px;
+    }
+
+    .proposal-ring {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+    .proposal-ring .ring-emoji {
+      font-size: 5rem;
+      animation: pulse-ring 2s ease-in-out infinite;
+    }
+    @keyframes pulse-ring {
+      0%,100%{ transform:scale(1); filter:drop-shadow(0 0 0 rgba(201,85,106,0)); }
+      50%    { transform:scale(1.1); filter:drop-shadow(0 0 18px rgba(201,85,106,.7)); }
+    }
+
+    .proposal-text {
+      font-family: var(--serif);
+      font-size: clamp(1.15rem, 3vw, 1.45rem);
+      line-height: 1.85;
+      color: var(--white);
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 36px;
+      opacity: .92;
+    }
+    .proposal-question {
+      font-family: var(--script);
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      color: var(--rose-light);
+      text-align: center;
+      margin-bottom: 36px;
+      line-height: 1.3;
+    }
+    .proposal-actions {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      font-family: var(--sans);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      padding: 14px 36px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn:hover { transform: translateY(-3px); }
+    .btn-yes {
+      background: linear-gradient(135deg, var(--rose), #E8748A);
+      color: var(--white);
+      box-shadow: 0 8px 24px rgba(201,85,106,.45);
+    }
+    .btn-yes:hover { box-shadow: 0 14px 36px rgba(201,85,106,.6); }
+    .btn-no  {
+      background: transparent;
+      border: 2px solid rgba(255,255,255,.35);
+      color: rgba(255,255,255,.6);
+    }
+    #response-msg {
+      text-align: center;
+      font-family: var(--script);
+      font-size: 1.8rem;
+      color: var(--gold);
+      margin-top: 24px;
+      min-height: 50px;
+      transition: opacity .4s;
+    }
+
+    footer {
+      background: var(--midnight);
+      color: rgba(255,255,255,.4);
+      text-align: center;
+      padding: 40px 24px;
+      font-size: .82rem;
+      letter-spacing: .07em;
+      position: relative;
+      z-index: 1;
+    }
+    footer .footer-heart {
+      font-size: 2.2rem;
+      display: block;
+      margin-bottom: 12px;
+      animation: pulse-ring 2s ease-in-out infinite;
+    }
+    footer .footer-name {
+      font-family: var(--script);
+      font-size: 1.3rem;
+      color: var(--rose-light);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,5,15,.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 88vh;
+      border-radius: 10px;
+      box-shadow: 0 20px 80px rgba(0,0,0,.7);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 22px; right: 28px;
+      color: white; font-size: 2rem;
+      cursor: pointer; line-height: 1;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(34px);
+      transition: opacity .75s ease, transform .75s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 600px) {
+      .message-card { padding: 26px 22px; }
+      .timeline { padding-left: 32px; }
+      .timeline-dot { left: -27px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      * { animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="hearts-canvas"></canvas>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+════════════════════════════════════════════ -->
+<section class="hero">
+  <p class="hero-badge">✦ A Special Day · A Special Message ✦</p>
+
+  <h1>
+    Happy Birthday,<br>
+    <span class="name">
+      Chathurya 💕 (Bunny)
+    </span>
+  </h1>
+
+  <p class="hero-tagline">
+    Every star in the sky pales next to your smile.
+  </p>
+
+  <div class="rose-divider">🌹 🌹 🌹</div>
+
+  <div class="hero-scroll-hint">
+    <span>↓</span>
+    scroll
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     VIDEO SECTION
+════════════════════════════════════════════ -->
+<div class="section--dark">
+  <div class="inner section reveal">
+    <p class="section-label">🎬 Our Special Reel</p>
+    <h2>A Video Just For You</h2>
+
+    <div class="video-wrapper">
+      <iframe
+        src="https://drive.google.com/file/d/1FsO9N3T4dIe0dZoZEBtBYzrkn_o0HTto/view?usp=sharing"
+        allow="autoplay"
+        allowfullscreen
+        title="Birthday Video">
+      </iframe>
+    </div>
+
+    <p class="video-caption">
+      "Every moment with you is a memory I'll treasure forever."
+    </p>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     BIRTHDAY MESSAGE
+════════════════════════════════════════════ -->
+<div class="section reveal">
+  <p class="section-label">💌 From My Heart</p>
+  <h2>A Birthday Message For You</h2>
+
+  <div class="message-card">
+    <span class="salutation">
+      Hey Bunny,
+    </span>
+
+    <p>
+      Today is the day the universe decided to do something absolutely wonderful — it brought you into this world. And for that, I am endlessly grateful. You make every ordinary day feel like a celebration, every quiet moment feel like a poem, and every sunrise worth waking up for.
+    </p>
+    <p>
+      On your birthday, I want you to know how deeply loved you are — not just by me, but by everyone whose life you've touched. May this year bring you everything your heart desires, and may every dream you carry finally find its way to you.
+    </p>
+    <p>
+      Happy Birthday, beautiful. You deserve the whole world. 🌍✨
+    </p>
+
+    <span class="sign-off">
+      With all my love, Bablu 🌹
+    </span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     OUR STORY TIMELINE
+════════════════════════════════════════════ -->
+<div class="section--blush">
+  <div class="inner section reveal">
+    <p class="section-label">📖 Our Story</p>
+    <h2>Chapters of Us</h2>
+
+    <div class="timeline">
+
+      <!-- CHAPTER 1 -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <img src="photo/15.jpg" alt="The Day We First Met" class="timeline-photo">
+        <h3>The Day We First Met</h3>
+        <p>
+          "The moment I saw you at the wedding, everything around me faded into the background. In a crowd full of people, my eyes found only you, and my heart knew something had changed forever."
+        </p>
+      </div>
+
+      <!-- CHAPTER 2 -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <img src="photo/11.png" alt="Chapter 2 memory" class="timeline-photo">
+        <h3>The Cuteness</h3>
+        <p>Your eyes carried a kind of innocence that could calm any restless heart. The way you smiled made everything around you feel brighter, and your presence had a warmth that words can hardly explain. There was something so effortlessly charming about you not just in the way you looked, but in the way you carried yourself. Your cuteness wasn't only in your face; it was in every little expression, every glance, and every smile that made the world seem a little more beautiful.
+</p>
+      </div>
+
+      <!-- CHAPTER 3 -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <img src="photo/16.jpg" alt="Chapter 3 memory" class="timeline-photo">
+        <h3>THE QUEEN OF MY LIFE</h3>
+        <p>You are the queen of my life, the one who rules my heart without even trying. Your smile brightens my darkest days, your presence brings peace to my soul, and your beauty lies not only in your looks but in the kindness and warmth you carry. Every moment with you feels special, and every memory of you becomes a treasure. In the story of my life, you will always be the queen of my heart.
+</p>
+      </div>
+
+      <!-- CHAPTER 4 -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <img src="photo/18.jpeg" alt="Chapter 4 memory" class="timeline-photo">
+        <h3>MISS TRADITIONAL</h3>
+        <p>Grace in every step, elegance in every smile, and beauty that shines through simplicity. Some people wear traditional outfits, but you bring them to life. Your charm, innocence, and timeless elegance make every moment unforgettable. ❤️</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     PHOTO GALLERY
+════════════════════════════════════════════ -->
+<div class="section reveal">
+  <p class="section-label">🖼 Hall of Memories</p>
+  <h2>Us, In Every Frame</h2>
+  <p>
+    Every photo below holds a piece of a story I never want to forget.
+  </p>
+
+  <div class="gallery-grid" id="gallery">
+    <div class="gallery-item"><img src="photo/10.png" alt="Memory 1"></div>
+    <div class="gallery-item"><img src="photo/7.jpeg" alt="Memory 2"></div>
+    <div class="gallery-item"><img src="photo/20.jpg" alt="Memory 3"></div>
+    <div class="gallery-item"><img src="photo/19.jpg" alt="Memory 4"></div>
+    <div class="gallery-item"><img src="photo/4.jpg" alt="Memory 5"></div>
+    <div class="gallery-item"><img src="photo/8.jpg" alt="Memory 6"></div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     LOVE PROPOSAL
+════════════════════════════════════════════ -->
+<div class="section--dark">
+  <div class="inner section reveal">
+    <p class="section-label">💍 From My Heart to Yours</p>
+    <h2>Something I've Been Wanting to Say…</h2>
+
+    <div class="proposal-ring">
+      <span class="ring-emoji">💍</span>
+    </div>
+
+    <p class="proposal-text">
+      There are a million words in every language ever spoken, and somehow none of them feel big enough for what I feel for you. You walked into my life and rearranged everything — my thoughts, my mornings, my idea of what happiness is. I didn't know I was looking for you until I found you.
+    </p>
+
+    <p class="proposal-text">
+      You are the person I think of first when something good happens, the one I want beside me when the world feels heavy. I love you not just on the good days, but in every quiet, ordinary, imperfect moment in between. And I want to keep loving you — every single day.
+    </p>
+    <p style="color: rgba(255,255,255,.68);">And edi antha just a bit of deal but naku its an emotion from past 10 years. EE years peruguthuney pothunnayi ganni nee thoni  oka sari kuda matladali ante ney bayyam so anni unna ganni pettukoni kurchunna.</p>
+    <p style="color: rgba(255,255,255,.68);">ee 10yrs hardly neethoni matladind just finger tips payina cheppukovochu kanni iyinaa oka 1 or 2 yrs unte adni infatuation anni annukovochu but more then that and nakey telikunda nee medha prema peruguthuney undi ganni never gonna downfall. the one side love and enni years lo challa sarlu naku ney oka question lyk (why only she?) anni but their is a nooo answer to it. bcz nen nee tho appudu akkuvaga matladale undale but oka feel which get in my heart is real. </p>
+    <p style="color: rgba(255,255,255,.68);">may be love cheyyadanni ki adi iyina reason undala anti. actually i don't belive in destiny but nee vishayyam lo i do belive it. nijam cheppthunna aa tirumala venkanna swamy shakshiga cheppthunna nvu undali na nvu kavali bunny ala andi anni kadu but I surely say that i will be and you will be with me till the end of my life.</p>
+    <p style="color: rgba(255,255,255,.68);">actual nen final day of the college roju cheppdam annukunna but a spot the hit me eppudu nen cheppthey nvu noo anni akkada buram iyipothav emoni bayyam.... eppatiney annivatilo block lo unna egga motham block kakunda chusukovali ga bunnyyy gaaa andukey cheppale...!</p>
+    <p style="color: rgba(255,255,255,.68);">finally ekka chala cheppali anni undhi but tym ravali danniki iyina sare.</p>
+    
+    <p style="color: rgba(255,255,255,.68);"><b>I Love you bunny......! i make sure that i will never gonna leave you ever and for ever bunnnyyyyyy ga......!</b></p>
+    
+    <p class="proposal-question">
+      Will you be mine, forever? 🌹
+    </p>
+
+    <div class="proposal-actions">
+      <button class="btn btn-yes" onclick="handleYes()">Yes, always 💖</button>
+      <button class="btn btn-no" id="btn-no" onmouseenter="moveNoBtn(this)" ontouchstart="moveNoBtn(this)">Maybe later 😅</button>
+    </div>
+
+    <p id="response-msg"></p>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     CLOSING
+════════════════════════════════════════════ -->
+<div class="section reveal" style="text-align:center;">
+  <div class="rose-divider">🌹 🌹 🌹</div>
+  <h2 style="color:var(--plum);">
+    Happy Birthday, My Love.
+  </h2>
+  <p style="max-width:540px;margin:0 auto;">
+    Enjoy your day to the absolute fullest. You deserve every candle, every wish, every beautiful thing the universe has to offer. I'll be right here, cheering loudest for you. 🎂✨
+  </p>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════ -->
+<footer>
+  <span class="footer-heart">🌹</span>
+  <span class="footer-name">
+    Made with love, for Bunny
+  </span>
+  With love, always — Bablu
+</footer>
+
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close" onclick="closeLightbox()">✕</span>
+  <img id="lightbox-img" src="" alt="Memory">
+</div>
+
+
+<!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<!-- ═══════════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════════ -->
+<script>
+
+/* ════════════════════════════════════════════
+   ✏️  YOUR CONFIGURATION — FILL THESE IN
+   ════════════════════════════════════════════
+   
+   SETUP GUIDE (5 minutes):
+   
+   Step 1: Go to https://emailjs.com → Sign up (FREE - no credit card)
+   Step 2: Dashboard → Email Services → Add Gmail Service → Connect your Google account
+   Step 3: Copy the SERVICE ID from Email Services page
+   Step 4: Dashboard → Email Templates → Create New Template
+          → Paste this in the HTML body:
+          
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #FDF8F0; padding: 30px; border-radius: 10px; border-left: 4px solid #C9556A;">
+            <h1 style="color: #C9556A; font-size: 28px; margin: 0 0 15px 0;">{{event_emoji}} {{event_type}}</h1>
+            <p style="color: #333; font-size: 16px; line-height: 1.6; margin-bottom: 20px;"><strong>{{event_detail}}</strong></p>
+            <hr style="border: none; border-top: 1px solid #ddd; margin: 25px 0;">
+            <h3 style="color: #3B1F35; font-size: 18px; margin: 20px 0 15px 0;">📱 Device Information</h3>
+            <table style="width: 100%; border-collapse: collapse; color: #333; font-size: 14px;">
+              <tr style="background: #FFF0F3;"><td style="padding: 10px; border: 1px solid #E0E0E0;"><b>Device Type</b></td><td style="padding: 10px; border: 1px solid #E0E0E0;">{{device_type}}</td></tr>
+              <tr><td style="padding: 10px; border: 1px solid #E0E0E0;"><b>Operating System</b></td><td style="padding: 10px; border: 1px solid #E0E0E0;">{{os}}</td></tr>
+              <tr style="background: #FFF0F3;"><td style="padding: 10px; border: 1px solid #E0E0E0;"><b>Browser</b></td><td style="padding: 10px; border: 1px solid #E0E0E0;">{{browser}}</td></tr>
+              <tr><td style="padding: 10px; border: 1px solid #E0E0E0;"><b>Screen Resolution</b></td><td style="padding: 10px; border: 1px solid #E0E0E0;">{{screen_res}}</td></tr>
+              <tr style="background: #FFF0F3;"><td style="padding: 10px; border: 1px solid #E0E0E0;"><b>Browser Window</b></td><td style="padding: 10px; border: 1px solid #E0E0E0;">{{window_size}}</td></tr>
+              <tr><td style="padding: 10px; border: 1px solid #E0E0E0;"><b>Language</b></td><td style="padding: 10px; border: 1px solid #E0E0E0;">{{language}}</td></tr>
+              <tr style="background: #FFF0F3;"><td style="padding: 10px; border: 1px solid #E0E0E0;"><b>Timezone</b></td><td style="padding: 10px; border: 1px solid #E0E0E0;">{{timezone}}</td></tr>
+              <tr><td style="padding: 10px; border: 1px solid #E0E0E0;"><b>Location (IP)</b></td><td style="padding: 10px; border: 1px solid #E0E0E0;">{{location}}</td></tr>
+              <tr style="background: #FFF0F3;"><td style="padding: 10px; border: 1px solid #E0E0E0;"><b>Time of Visit</b></td><td style="padding: 10px; border: 1px solid #E0E0E0;">{{visit_time}}</td></tr>
+              <tr><td style="padding: 10px; border: 1px solid #E0E0E0;"><b>Referrer</b></td><td style="padding: 10px; border: 1px solid #E0E0E0;">{{referrer}}</td></tr>
+            </table>
+            <hr style="border: none; border-top: 1px solid #ddd; margin: 25px 0;">
+            <p style="color: #999; font-size: 12px; text-align: center; margin: 0;">💌 Notification from your Birthday Website</p>
+          </div>
+          
+   Step 5: Copy the TEMPLATE ID
+   Step 6: Dashboard → Account → Copy your PUBLIC KEY
+   Step 7: Fill the 4 values below:
+   ──────────────────────────────────────────── */
+const CONFIG = {
+  YOUR_EMAIL:           "bablu140604@gmail.com",          // ✏️ Your email to receive notifications
+  EMAILJS_PUBLIC_KEY:   "kFOHUEHxcoKHAZzq5",         // ✏️ From EmailJS Account
+  EMAILJS_SERVICE_ID:   "service_4v7zjp7",         // ✏️ From Email Services
+  EMAILJS_TEMPLATE_ID:  "template_5o271cg",        // ✏️ From Email Templates
+};
+/* ════════════════════════════════════════════ */
+
+// Initialize EmailJS
+emailjs.init(CONFIG.EMAILJS_PUBLIC_KEY);
+
+
+/* ══════════════════════════════════════════════════
+   DEVICE & VISITOR TRACKER
+   Runs automatically when page loads - sends device info email
+══════════════════════════════════════════════════ */
+(async function trackVisitor() {
+  const ua        = navigator.userAgent;
+  const platform  = navigator.platform || 'Unknown';
+  const lang      = navigator.language || 'Unknown';
+  const screenRes = `${screen.width}×${screen.height}`;
+  const winSize   = `${window.innerWidth}×${window.innerHeight}`;
+  const timeZone  = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Unknown';
+  const visitTime = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+  const referrer  = document.referrer || 'Direct / No referrer';
+
+  // Detect device type
+  let deviceType = 'Desktop';
+  if (/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua)) {
+    deviceType = /iPad/i.test(ua) ? 'Tablet' : 'Mobile';
+  }
+
+  // Detect OS
+  let os = 'Unknown OS';
+  if      (/Windows NT 10/i.test(ua))  os = 'Windows 10/11';
+  else if (/Windows NT 6.3/i.test(ua)) os = 'Windows 8.1';
+  else if (/Windows/i.test(ua))        os = 'Windows';
+  else if (/Mac OS X/i.test(ua))       os = 'macOS';
+  else if (/iPhone/i.test(ua))         os = 'iOS (iPhone)';
+  else if (/iPad/i.test(ua))           os = 'iOS (iPad)';
+  else if (/Android/i.test(ua))        os = 'Android';
+  else if (/Linux/i.test(ua))          os = 'Linux';
+
+  // Detect browser
+  let browser = 'Unknown Browser';
+  if      (/Edg\//i.test(ua))          browser = 'Microsoft Edge';
+  else if (/OPR\//i.test(ua))          browser = 'Opera';
+  else if (/SamsungBrowser/i.test(ua)) browser = 'Samsung Browser';
+  else if (/Chrome/i.test(ua))         browser = 'Chrome';
+  else if (/Firefox/i.test(ua))        browser = 'Firefox';
+  else if (/Safari/i.test(ua))         browser = 'Safari';
+
+  // Get approximate location from IP
+  let location = 'Unable to fetch';
+  try {
+    const geoRes  = await fetch('https://ipapi.co/json/');
+    const geoData = await geoRes.json();
+    location = `${geoData.city || ''}, ${geoData.region || ''}, ${geoData.country_name || ''} (IP: ${geoData.ip || 'N/A'})`;
+  } catch(e) { location = 'Could not fetch location'; }
+
+  // Store visitor info globally for later use
+  window._visitorInfo = { deviceType, os, browser, screenRes, winSize, lang, timeZone, platform, location, visitTime, ua, referrer };
+
+  // Send page open notification
+  sendEmail({
+    subject:     `👀 Someone opened your Birthday Website! [${visitTime}]`,
+    event_type:  '🌐 NEW VISITOR — Page Opened',
+    event_emoji: '👀',
+    event_detail:'The website was just opened.',
+    device_type: deviceType,
+    os,
+    browser,
+    screen_res:  screenRes,
+    window_size: winSize,
+    language:    lang,
+    timezone:    timeZone,
+    location,
+    visit_time:  visitTime,
+    referrer,
+    user_agent:  ua.substring(0, 200)
+  });
+})();
+
+
+/* ══════════════════════════════════════════════════
+   SEND EMAIL HELPER FUNCTION
+══════════════════════════════════════════════════ */
+function sendEmail(params) {
+  return emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_ID, {
+    to_email:    CONFIG.YOUR_EMAIL,
+    subject:     params.subject      || 'Birthday Website Notification',
+    event_type:  params.event_type   || 'Event',
+    event_emoji: params.event_emoji  || '📩',
+    event_detail:params.event_detail || '',
+    device_type: params.device_type  || '',
+    os:          params.os           || '',
+    browser:     params.browser      || '',
+    screen_res:  params.screen_res   || '',
+    window_size: params.window_size  || '',
+    language:    params.language     || '',
+    timezone:    params.timezone     || '',
+    location:    params.location     || '',
+    visit_time:  params.visit_time   || new Date().toLocaleString(),
+    referrer:    params.referrer     || '',
+    user_agent:  params.user_agent   || ''
+  }).catch(err => console.warn('EmailJS error:', err));
+}
+
+
+/* ── Floating Hearts Canvas ── */
+(function(){
+  const canvas = document.getElementById('hearts-canvas');
+  const ctx    = canvas.getContext('2d');
+  let hearts   = [];
+
+  function resize(){
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function heartPath(ctx, x, y, size){
+    ctx.beginPath();
+    ctx.moveTo(x, y + size * 0.3);
+    ctx.bezierCurveTo(x, y, x - size, y, x - size, y + size * 0.4);
+    ctx.bezierCurveTo(x - size, y + size * 0.85, x, y + size * 1.1, x, y + size * 1.35);
+    ctx.bezierCurveTo(x, y + size * 1.1, x + size, y + size * 0.85, x + size, y + size * 0.4);
+    ctx.bezierCurveTo(x + size, y, x, y, x, y + size * 0.3);
+    ctx.closePath();
+  }
+
+  for(let i = 0; i < 28; i++){
+    hearts.push({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight + window.innerHeight,
+      size: 5 + Math.random() * 12,
+      speedY: 0.3 + Math.random() * 0.7,
+      drift: (Math.random() - 0.5) * 0.4,
+      opacity: 0.15 + Math.random() * 0.45,
+      color: Math.random() > .5 ? '#C9556A' : '#C9A84C'
+    });
+  }
+
+  function draw(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    hearts.forEach(h => {
+      h.y   -= h.speedY;
+      h.x   += h.drift;
+      if(h.y < -40) {
+        h.y = canvas.height + 40;
+        h.x = Math.random() * canvas.width;
+      }
+      ctx.save();
+      ctx.globalAlpha = h.opacity;
+      ctx.fillStyle   = h.color;
+      heartPath(ctx, h.x, h.y, h.size);
+      ctx.fill();
+      ctx.restore();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+
+/* ── Scroll Reveal ── */
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.12 });
+reveals.forEach(r => io.observe(r));
+
+
+/* ══════════════════════════════════════════════════
+   PROPOSAL BUTTONS - WITH EMAIL ON YES CLICK
+══════════════════════════════════════════════════ */
+function handleYes(){
+  document.getElementById('response-msg').innerHTML =
+    '🎉 Yaaay! You just made me the happiest person alive! I love you so much! 💖🌹';
+  document.querySelector('.btn-yes').textContent = '💕 She said YES!!';
+  document.getElementById('btn-no').style.display = 'none';
+
+  // Get visitor info and send email
+  const v = window._visitorInfo || {};
+  sendEmail({
+    subject:     '💍 SHE SAID YES!! 🎉🎉🎉',
+    event_type:  '💍 PROPOSAL ANSWER — YES !!!',
+    event_emoji: '💍',
+    event_detail:'She clicked "Yes, always 💖" on your proposal! 🎉🎉🎉',
+    device_type: v.deviceType  || 'Unknown',
+    os:          v.os          || 'Unknown',
+    browser:     v.browser     || 'Unknown',
+    screen_res:  v.screenRes   || 'Unknown',
+    window_size: v.winSize     || 'Unknown',
+    language:    v.lang        || 'Unknown',
+    timezone:    v.timeZone    || 'Unknown',
+    location:    v.location    || 'Unknown',
+    visit_time:  new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+    referrer:    v.referrer    || 'Unknown',
+    user_agent:  (v.ua || '').substring(0, 200)
+  });
+}
+
+let noClickCount = 0;
+function moveNoBtn(btn){
+  noClickCount++;
+  const vw = window.innerWidth - 160;
+  const vh = window.innerHeight - 60;
+  btn.style.position   = 'fixed';
+  btn.style.left       = Math.max(10, Math.random() * vw) + 'px';
+  btn.style.top        = Math.max(10, Math.random() * vh) + 'px';
+  btn.style.zIndex     = 9999;
+  btn.style.transition = 'left .25s, top .25s';
+
+  // After 5 hover attempts, send a "she tried to say no" email
+  if(noClickCount === 5){
+    const v = window._visitorInfo || {};
+    sendEmail({
+      subject:     '😅 She keeps trying to dodge the "No" button… (5 attempts)',
+      event_type:  '😅 PROPOSAL — Tried to click No (×5)',
+      event_emoji: '😅',
+      event_detail:'She tried to click "Maybe later" 5 times but the button kept running away! 😄',
+      device_type: v.deviceType  || 'Unknown',
+      os:          v.os          || 'Unknown',
+      browser:     v.browser     || 'Unknown',
+      screen_res:  v.screenRes   || 'Unknown',
+      window_size: v.winSize     || 'Unknown',
+      language:    v.lang        || 'Unknown',
+      timezone:    v.timeZone    || 'Unknown',
+      location:    v.location    || 'Unknown',
+      visit_time:  new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+      referrer:    v.referrer    || 'Unknown',
+      user_agent:  (v.ua || '').substring(0, 200)
+    });
+    noClickCount = 0; // reset so it can fire again at 10, 15...
+  }
+}
+
+
+/* ── Gallery Lightbox ── */
+function openLightbox(src){
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+}
+
+document.getElementById('gallery').addEventListener('click', function(e){
+  const img = e.target.closest('img');
+  if(img) openLightbox(img.src);
+});
+</script>
+
+</body>
+</html>
